@@ -9,6 +9,13 @@
     <artifactId>springboot</artifactId>
     <!-- 版本 -->
     <version>1.0-SNAPSHOT</version>
+    <!-- 子项目 -->
+    <modules>
+        <module>mybatis</module>
+        <module>common</module>
+        <module>redis</module>
+        <module>api</module>
+    </modules>
 
     <!-- 打包类型，默认jar，会打成jar包。父项目只控制版本不需要打包，设为pom -->
     <packaging>pom</packaging>
@@ -20,6 +27,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <mybatis.version>2.1.1</mybatis.version>
+        <redisson.version>3.11.1</redisson.version>
+        <swagger.version>2.5.0</swagger.version>
     </properties>
 
     <!-- 声明依赖，不自动引入，子项目需要显式声明需要用的依赖 -->
@@ -38,5 +48,41 @@
 
     <!-- 自动引入，子项目继承依赖 -->
     <dependencies>
+        <!-- 引入lombok依赖 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 引入log4j2依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <!-- 排除logging依赖 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 </project>
