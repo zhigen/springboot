@@ -31,13 +31,13 @@ public class UserController {
         return userService.add(user);
     }
 
-    @PostMapping("/user2")
-    @ApiOperation("增")
-    public User add2(@RequestBody User user, HttpServletRequest request) {
+    @PostMapping("/user/transactional")
+    @ApiOperation("测试事务")
+    public User transactional(@RequestBody User user, HttpServletRequest request) {
         Long userId = NumberUtils.parseNumber(request.getHeader(TOKEN_KEY), Long.class);
         user.setCreatedBy(userId);
         user.setLastModifiedBy(userId);
-        return userService.add2(user);
+        return userService.transactional(user);
     }
 
     @GetMapping("/user/{id}")

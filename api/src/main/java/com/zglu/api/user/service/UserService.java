@@ -22,10 +22,9 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = RuntimeException.class)
-    public User add2(User user) {
+    public User transactional(User user) {
         userDao.save(user);
         // 当不设id为空时，会抛出重复id错误，事物回滚
-        user.setId(null);
         return userDao.save(user);
     }
 
